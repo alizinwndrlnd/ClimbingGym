@@ -18,10 +18,11 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </UIElement.RenderTransform>
-            <TextBlock Text="Új Mászó Felvétele:" Margin="10"/>
+            <TextBlock Text="Új Mászó Felvétele:" Margin="10" Foreground="DarkCyan" FontWeight="Bold"/>
             
             <TextBlock x:Name="PlaceholderTextBlock" Text="Név"
-            Foreground="Gray"
+                 Foreground="DarkCyan"
+                 FontWeight="Bold"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
             Margin="14,0,0,0"
@@ -30,7 +31,8 @@
             <TextBox x:Name="ClimberNameTextBox" Width="200" Margin="10" HorizontalAlignment="Left" />
 
             <TextBlock x:Name="EmailPlaceholderTextBlock" Text="Email cím"
-                 Foreground="Gray"
+                 Foreground="DarkCyan"
+                 FontWeight="Bold"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Left"
                  Margin="14,0,0,0"
@@ -39,16 +41,18 @@
             <TextBox x:Name="ClimberEmailTextBox" Width="200" Margin="10" HorizontalAlignment="Left" />
 
             <TextBlock x:Name="PhonePlaceholderTextBlock" Text="Telefonszám"
-     Foreground="Gray"
-     VerticalAlignment="Center"
-     HorizontalAlignment="Left"
-     Margin="14,0,0,0"
-     IsHitTestVisible="False"
-     Visibility="Visible" />
+                  Foreground="DarkCyan"
+                  FontWeight="Bold"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Left"
+                  Margin="14,0,0,0"
+                  IsHitTestVisible="False"
+                  Visibility="Visible" />
             <TextBox x:Name="ClimberPhoneTextBox" Width="200" Margin="10" HorizontalAlignment="Left" />
 
             <TextBlock x:Name="MembershipPlaceholderTextBlock" Text="Mászó szint"
-                Foreground="Gray"
+                Foreground="DarkCyan"
+                FontWeight="Bold"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 Margin="14,0,0,0"
@@ -56,17 +60,18 @@
                 Visibility="Visible" />
 
 
-            <ComboBox x:Name="MembershipTypeComboBox" Width="200" Margin="10" HorizontalAlignment="Left">
+            <ComboBox x:Name="MembershipTypeComboBox" Width="200" Margin="10" HorizontalAlignment="Left" Background="Yellow">
                 <ComboBoxItem Content="Alap"/>
                 <ComboBoxItem Content="Haladó"/>
                 <ComboBoxItem Content="Profi"/>
             </ComboBox>
-            <Button Content="Felvétel" Width="200" Margin="10" Click="AddClimberButton_Click" Background="Yellow" HorizontalAlignment="Left"/>
+            <Button Content="Felvétel" Width="200" Margin="10" Click="AddClimberButton_Click" Background="DarkCyan" Foreground="Yellow" FontWeight="Bold" HorizontalAlignment="Left"/>
 
-            <TextBlock Text="Mászók Listája:" Margin="10"/>
+            <TextBlock Text="Mászók Listája:" Margin="10" Foreground="DarkCyan" FontWeight="Bold"/>
             <ListBox x:Name="ClimbersListBox" Width="200" Height="200" Margin="10" HorizontalAlignment="Left"/>
 
-            <Button Content="Adatok Mentése" Width="200" Margin="10" Click="SaveDataButton_Click" HorizontalAlignment="Left"/>
+            <Button Content="Adatok Mentése" Width="200" Margin="10" Click="SaveDataButton_Click" HorizontalAlignment="Left" Background="DarkCyan" Foreground="Yellow" FontWeight="Bold"/>
+            <Button Content="Adatok Törlése" Width="200" Margin="10" Click="SaveDataButton_Click" HorizontalAlignment="Left" Background="DarkCyan" Foreground="Yellow" FontWeight="Bold"/>
         </StackPanel>
 
     </Grid>
