@@ -7,6 +7,9 @@ using ClimbingGym.Logic;
 using ClimbingGym.Repository;
 using ClimbingGym.Data;
 using System.IO;
+using System.Text.Json;
+using System.Windows;
+
 
 namespace ClimbingGym.CLI
 {
@@ -84,7 +87,7 @@ namespace ClimbingGym.CLI
             }
         }
 
-        // Implementáld a metódusokat: AddNewClimber, ListAllClimbers, RemoveClimber, AddNewVisit, ListAllVisits, SaveData stb.
+        //  metódusok: AddNewClimber, ListAllClimbers, RemoveClimber, AddNewVisit, ListAllVisits, SaveData stb.
         static void AddNewClimber(ClimberService climberService)
         {
             Console.Write("Adja meg a mászó nevét (Vezetéknév, Keresztnév): ");
@@ -93,14 +96,14 @@ namespace ClimbingGym.CLI
             Console.Write("Adja meg a tagság típusát (jegy, Havi bérlet, Éves bérlet): ");
             string membershipType = Console.ReadLine();
 
-            int newId = new Random().Next(1000, 9999); // Ez egy egyszerű példa, inkább valós id-k generálása szükséges
-            Climber climber = new Climber(newId, name, membershipType);
-
             Console.Write("Adja meg a mászó Email címét: ");
             string email = Console.ReadLine();
 
             Console.Write("Adja meg a mászó telefonszámát: ");
             string phone = Console.ReadLine();
+
+            int newId = new Random().Next(1000, 9999);
+            Climber climber = new Climber(newId, name, membershipType, phone, email);
 
             climberService.AddClimber(climber);
             Console.WriteLine("Mászó hozzáadva.");
@@ -178,20 +181,39 @@ namespace ClimbingGym.CLI
         static void SaveData(ClimberRepository climberRepository, VisitRepository visitRepository)
         {
             // Adatok mentése fájlba
-            // Implementálj egy mentési metódust, amely a climberRepository és visitRepository tartalmát fájlba menti
+            // ide még kell egy mentési metódus, ami a climberRepository és visitRepository tartalmát fájlba menti
+            string filePath = "climbingGymData.txt";
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                // Climber adatok mentése
+                writer.WriteLine("Climbers:");
+                foreach (var climber in climberRepository.GetAllClimbers())
+                {
+                    writer.WriteLine($"ID: {climber.ClimberId}, Name: {climber.Name}, Membership: {climber.MembershipType}");
+                }
+
+                // Visit adatokat mentése
+                writer.WriteLine("\nVisits:");
+                foreach (var visit in visitRepository.GetAllVisits())
+                {
+                    writer.WriteLine($"ClimberID: {visit.ClimberId}, Date: {visit.VisitDate}, RouteLevel: {visit.RouteDifficulty}");
+                }
+            }
+            Console.WriteLine("Adatok sikeresen mentve TXT fájlba.");
+
         }
 
         static ClimberRepository LoadClimberData(string filePath)
         {
             // Adatok betöltése fájlból
-            // Implementáld az adatok betöltését a fájlból, és add vissza a ClimberRepository példányát
+            //  az adatok betöltését a fájlból, és visszaadni a ClimberRepository példányát
             return new ClimberRepository();
         }
 
         static VisitRepository LoadVisitData(string filePath)
         {
             // Adatok betöltése fájlból
-            // Implementáld az adatok betöltését a fájlból, és add vissza a VisitRepository példányát
+            //  az adatok betöltése a fájlból, és visszaadni a VisitRepository példányát
             return new VisitRepository();
         }
     }
