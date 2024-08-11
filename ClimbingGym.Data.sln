@@ -14,6 +14,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimbingGym.Logic", "Climbi
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimbingGym.CLI", "ClimbingGym.CLI\ClimbingGym.CLI.csproj", "{DD1373D5-2DD6-4D3B-8A3F-544F51657E85}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C7B2DC99-E25C-4EFA-BB2E-5CFC5A8C5F17} = {C7B2DC99-E25C-4EFA-BB2E-5CFC5A8C5F17}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimbingGym.GUI", "ClimbingGym.GUI\ClimbingGym.GUI.csproj", "{C7B2DC99-E25C-4EFA-BB2E-5CFC5A8C5F17}"
 	ProjectSection(ProjectDependencies) = postProject

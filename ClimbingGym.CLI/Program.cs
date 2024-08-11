@@ -178,18 +178,20 @@ namespace ClimbingGym.CLI
             }
         }
 
+        //-----------------------------
+        //fájlba írás
+
         static void SaveData(ClimberRepository climberRepository, VisitRepository visitRepository)
         {
-            // Adatok mentése fájlba
             // ide még kell egy mentési metódus, ami a climberRepository és visitRepository tartalmát fájlba menti
-            string filePath = "climbingGymData.txt";
-            using (StreamWriter writer = new StreamWriter(filePath))
+            string mentettFile = "climbingGymData.txt";
+            using (StreamWriter writer = new StreamWriter(mentettFile))
             {
                 // Climber adatok mentése
                 writer.WriteLine("Climbers:");
                 foreach (var climber in climberRepository.GetAllClimbers())
                 {
-                    writer.WriteLine($"ID: {climber.ClimberId}, Name: {climber.Name}, Membership: {climber.MembershipType}");
+                    writer.WriteLine($"ID: {climber.ClimberId}, Name: {climber.Name}, Email: {climber.Email}, Phone number: {climber.Phone}, Membership: {climber.MembershipType}");
                 }
 
                 // Visit adatokat mentése
@@ -203,18 +205,102 @@ namespace ClimbingGym.CLI
 
         }
 
-        static ClimberRepository LoadClimberData(string filePath)
+
+        // adatok betöltése fájlból
+        private static ClimberRepository LoadClimberData(string mentettFile)
         {
-            // Adatok betöltése fájlból
-            //  az adatok betöltését a fájlból, és visszaadni a ClimberRepository példányát
-            return new ClimberRepository();
+            ClimberRepository climberRepository = new ClimberRepository();
+
+            if (!File.Exists(mentettFile))
+            {
+                Console.WriteLine("A megadott fájl nem található.");
+                return climberRepository;
+            }
+
+            using (StreamReader reader = new StreamReader(mentettFile))
+            {
+                string line;
+                bool readingClimbers = false;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.StartsWith("Climbers:"))
+                    {
+                        readingClimbers = true;
+                        continue;
+                    }
+
+                    if (readingClimbers && line.StartsWith("ID:"))
+                    {
+                        string[] parts = line.Split(',');
+
+                        int id = int.Parse(parts[0].Split(':')[1].Trim());
+                        string name = parts[1].Split(':')[1].Trim();
+                        string email = parts[2].Split(':')[1].Trim();
+                        string phone = parts[3].Split(':')[1].Trim();
+                        string membership = parts[4].Split(':')[1].Trim();
+
+                        Climber climber = new Climber(id, name, email, phone, membership);
+                        climberRepository.AddClimber(climber);
+                    }
+                }
+            }
+
+            return climberRepository;
         }
 
-        static VisitRepository LoadVisitData(string filePath)
+       
+
+     
+
+           
+        static VisitRepository LoadVisitData(string mentettFile)
         {
             // Adatok betöltése fájlból
             //  az adatok betöltése a fájlból, és visszaadni a VisitRepository példányát
-            return new VisitRepository();
+
+            VisitRepository repository = new VisitRepository();
+
+            // fájl ellenőrzés
+            if (!File.Exists(mentettFile))
+            {
+                Console.WriteLine("A fájl nem található.");
+                return repository;
+            }
+
+            using (StreamReader reader = new StreamReader(mentettFile))
+            {
+                string line;
+                bool readingVisits = false;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.StartsWith("Visits:"))
+                    {
+                        readingVisits = true;
+                        continue;
+                    }
+
+                    if (readingVisits && line.StartsWith("ClimberID:"))
+                    {
+                        // A látogatási adatok feldarabolása és feldolgozása
+                        string[] parts = line.Split(',');
+
+                        int climberId = int.Parse(parts[0].Split(':')[1].Trim());
+                        DateTime visitDate = DateTime.Parse(parts[1].Split(':')[1].Trim());
+                        string routeDifficulty = parts[2].Split(':')[1].Trim();
+
+                        // Új Visit példány hozzáadása a repository-hoz
+                        Visit visit = new Visit(climberId, visitDate, routeDifficulty);
+                        repository.AddVisit(visit);
+                    }
+                }
+            }
+
+            
+            return repository;
         }
     }
 }
+
+
