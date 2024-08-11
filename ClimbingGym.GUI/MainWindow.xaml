@@ -18,6 +18,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </UIElement.RenderTransform>
+            <TextBlock Text="Ez a -- Flash it! -- falmászótermünk regisztrációs felülete!" Margin="10" Foreground="DarkCyan" FontWeight="Bold" HorizontalAlignment="Center"/>
             <TextBlock Text="Új Mászó Felvétele:" Margin="10" Foreground="DarkCyan" FontWeight="Bold"/>
             
             <TextBlock x:Name="PlaceholderTextBlock" Text="Név"
