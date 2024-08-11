@@ -249,11 +249,11 @@ namespace ClimbingGym.CLI
             return climberRepository;
         }
 
-       
 
-     
 
-           
+
+        // látogatási adatok betöltése fájlból
+
         static VisitRepository LoadVisitData(string mentettFile)
         {
             // Adatok betöltése fájlból
